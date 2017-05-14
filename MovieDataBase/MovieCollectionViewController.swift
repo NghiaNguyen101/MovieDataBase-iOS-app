@@ -12,13 +12,13 @@ import MBProgressHUD
 
 class MovieCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
 
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var networkErrButton : UIButton?
     var movies : [[String:Any]] = []
     var filterMovies : [[String:Any]] = []
     let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+    let searchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,11 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         // Do any additional setup after loading the view.
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.frame = self.view.frame
         searchBar.delegate = self
+        searchBar.placeholder = "Search movie"
+        
+        self.navigationItem.titleView = searchBar
         
         // Network error button
         networkErrButton = UIButton(frame: CGRect(x: collectionView.bounds.origin.x, y: collectionView.bounds.origin.y, width: collectionView.bounds.width, height: searchBar.bounds.height))
@@ -57,7 +61,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
                     //                    print(dataDictionary)
                     self.movies = dataDictionary["results"] as! [[String:Any]]
                     self.filterMovies = self.movies
-                    print(self.movies)
+//                    print(self.movies)
                     self.collectionView.reloadData()
                     self.networkErrButton?.isHidden = true
                 }
@@ -84,7 +88,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
                     //                    print(dataDictionary)
                     self.movies = dataDictionary["results"] as! [[String:Any]]
                     self.filterMovies = self.movies
-                    print(self.movies)
+//                    print(self.movies)
                     MBProgressHUD.hide(for: self.view, animated: true)
                     self.collectionView.reloadData()
                     self.networkErrButton?.isHidden = true
@@ -113,7 +117,8 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCell
-        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: self.view.bounds.width/2, height: 250)
+        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: collectionView.frame.size.width/2, height: 250)
+        cell.movieImage.frame.size.width = cell.frame.size.width
         let movie = self.filterMovies[indexPath.row]
         if let poster_path = movie["poster_path"] as? String {
             let base_url = "https://image.tmdb.org/t/p/w500/"
@@ -160,5 +165,14 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "detailMovie" {
+            let cell = sender as! MovieCell
+            let indexPath = collectionView.indexPath(for: cell)
+            let movie = filterMovies[(indexPath!.row)]
+            print(movie)
+            let destVC = segue.destination as! DetailMovieViewController
+            destVC.movie = movie
+            
+        }
     }
 }
