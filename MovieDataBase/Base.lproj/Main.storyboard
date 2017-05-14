@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Movie Collection View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MovieCollectionViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f8s-Zg-scs">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cim-OK-mSg">
+                                    <size key="itemSize" width="180" height="250"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="movieCell" id="dUn-kr-vHP" customClass="MovieCell" customModule="Flicks" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="250"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="180" height="250"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ADZ-EJ-4VI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="250"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="ADZ-EJ-4VI" firstAttribute="leading" secondItem="dUn-kr-vHP" secondAttribute="leading" id="9TQ-7C-gLk"/>
+                                            <constraint firstAttribute="trailing" secondItem="ADZ-EJ-4VI" secondAttribute="trailing" id="Xlq-Il-zKv"/>
+                                            <constraint firstAttribute="bottom" secondItem="ADZ-EJ-4VI" secondAttribute="bottom" id="o3F-tg-RAT"/>
+                                            <constraint firstItem="ADZ-EJ-4VI" firstAttribute="top" secondItem="dUn-kr-vHP" secondAttribute="top" id="xga-eJ-vHS"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="movieImage" destination="ADZ-EJ-4VI" id="ydH-WV-mzw"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ASr-Ez-pPm">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="f8s-Zg-scs" firstAttribute="top" secondItem="ASr-Ez-pPm" secondAttribute="bottom" id="02w-mE-xB1"/>
+                            <constraint firstItem="ASr-Ez-pPm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="KAl-ZP-wwQ"/>
+                            <constraint firstItem="f8s-Zg-scs" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Poe-if-Pam"/>
+                            <constraint firstItem="f8s-Zg-scs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QBT-Qc-MBT"/>
+                            <constraint firstItem="ASr-Ez-pPm" firstAttribute="leading" secondItem="f8s-Zg-scs" secondAttribute="leading" id="Qnc-EE-Jm5"/>
+                            <constraint firstItem="ASr-Ez-pPm" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="SM0-ub-H8V"/>
+                            <constraint firstItem="f8s-Zg-scs" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="buD-eD-8uG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="f8s-Zg-scs" id="kHW-fb-ZxK"/>
+                        <outlet property="searchBar" destination="ASr-Ez-pPm" id="F3k-LV-pzf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-330" y="34"/>
+        </scene>
+    </scenes>
+</document>
