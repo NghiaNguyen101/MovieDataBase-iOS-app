@@ -33,7 +33,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         networkErrButton?.backgroundColor = UIColor.gray
         networkErrButton?.setTitle("Network Error!", for: .normal)
         networkErrButton?.isEnabled = true
-        networkErrButton?.isHidden = false
+        networkErrButton?.isHidden = true
         networkErrButton?.addTarget(self, action: #selector(fetch_data), for: UIControlEvents.touchUpInside)
         collectionView.addSubview(networkErrButton!)
         
@@ -43,7 +43,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         // add refresh control to collection view
         collectionView.insertSubview(refreshControl, at: 0)
         
-        //fetch_data()
+        fetch_data()
     }
     
     func update_data(_ refreshControl: UIRefreshControl) {
