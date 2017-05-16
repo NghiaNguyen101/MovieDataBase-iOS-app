@@ -63,7 +63,7 @@
         <!--Navigation Controller-->
         <scene sceneID="QYK-Kl-G1E">
             <objects>
-                <navigationController id="bjq-Eh-5uH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MovieNavigationController" id="bjq-Eh-5uH" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y7U-yJ-09g">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -84,36 +84,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="b5f-wK-ixA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="b5f-wK-ixA">
+                                <rect key="frame" x="0.0" y="61" width="375" height="606"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="bTw-cL-8YN">
-                                <rect key="frame" x="0.0" y="337" width="375" height="310"/>
+                                <rect key="frame" x="0.0" y="242" width="375" height="405"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" misplaced="YES" id="dol-fx-etJ">
-                                        <rect key="frame" x="16" y="240" width="343" height="265"/>
+                                        <rect key="frame" x="16" y="170" width="343" height="265"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="over view" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="EMD-67-Bnn">
-                                                <rect key="frame" x="8" y="77" width="327" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Release date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="klc-Cw-vv3">
+                                                <rect key="frame" x="8" y="46" width="99" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Release date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="klc-Cw-vv3">
-                                                <rect key="frame" x="8" y="46" width="99" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rating: 5.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rhu-3S-iUD">
-                                                <rect key="frame" x="253" y="51" width="82" height="21"/>
+                                                <rect key="frame" x="253" y="46" width="82" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -121,6 +114,13 @@
                                                 <rect key="frame" x="8" y="14" width="327" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="over view" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="EMD-67-Bnn">
+                                                <rect key="frame" x="8" y="75" width="327" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>

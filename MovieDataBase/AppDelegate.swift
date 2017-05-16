@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Flicks
+//  MovieDatabase
 //
 //  Created by Nghia Nguyen on 5/13/17.
 //  Copyright © 2017 Nghia Nguyen. All rights reserved.
@@ -16,6 +16,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // add tabbar controller
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let nowPlayingNavigationController = storyboard.instantiateViewController(withIdentifier: "MovieNavigationController") as! UINavigationController
+        let nowPlayingViewController = nowPlayingNavigationController.topViewController as! MovieCollectionViewController
+        nowPlayingViewController.endPoint = "now_playing"
+        nowPlayingNavigationController.tabBarItem.title = "Now Playing"
+        nowPlayingNavigationController.tabBarItem.image = UIImage(named: "now_playing")
+        nowPlayingNavigationController.navigationBar.tintColor = UIColor.black
+        nowPlayingNavigationController.navigationBar.barTintColor = UIColor.orange
+        
+        let topRatedNavigationController = storyboard.instantiateViewController(withIdentifier: "MovieNavigationController") as! UINavigationController
+        let topRatedViewController = topRatedNavigationController.topViewController as! MovieCollectionViewController
+        topRatedViewController.endPoint = "top_rated"
+        topRatedNavigationController.tabBarItem.title = "Top Rated"
+        topRatedNavigationController.tabBarItem.image = UIImage(named: "top_rated")
+        topRatedNavigationController.navigationBar.tintColor = UIColor.black
+        topRatedNavigationController.navigationBar.barTintColor = UIColor.orange
+        
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.tintColor = UIColor.black
+        tabBarController.tabBar.barTintColor = UIColor.orange
+        tabBarController.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
+        
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

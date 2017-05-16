@@ -49,7 +49,7 @@ class DetailMovieViewController: UIViewController {
         
         detailView.sizeToFit()
         
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: detailView.frame.origin.y + detailView.frame.size.height)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: detailView.frame.origin.y + detailView.frame.size.height + 20)
         
         if let poster_path = movie["poster_path"] as? String {
             let base_url = "https://image.tmdb.org/t/p/w500/"

@@ -19,6 +19,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     var filterMovies : [[String:Any]] = []
     let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
     let searchBar = UISearchBar()
+    var endPoint: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         self.navigationItem.titleView = searchBar
         
         // Network error button
-        networkErrButton = UIButton(frame: CGRect(x: collectionView.bounds.origin.x, y: collectionView.bounds.origin.y, width: collectionView.bounds.width, height: searchBar.bounds.height))
+        networkErrButton = UIButton(frame: CGRect(x: collectionView.bounds.origin.x, y: collectionView.bounds.origin.y, width: collectionView.bounds.width, height: searchBar.bounds.height+30))
         networkErrButton?.backgroundColor = UIColor.gray
         networkErrButton?.setTitle("Network Error!", for: .normal)
         networkErrButton?.isEnabled = true
@@ -50,8 +51,14 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         fetch_data()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if networkErrButton?.isHidden == false {
+            fetch_data()
+        }
+    }
+    
     func update_data(_ refreshControl: UIRefreshControl) {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(self.apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(self.endPoint!)?api_key=\(self.apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -66,6 +73,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
                     self.networkErrButton?.isHidden = true
                 }
             } else {
+                print("Error here")
                 self.networkErrButton?.isHidden = false
             }
             refreshControl.endRefreshing()
@@ -74,28 +82,29 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     }
     
     func fetch_data() {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(self.apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(self.endPoint!)?api_key=\(self.apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         
         // Display HUD right before the request is made
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
+        
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             // Hide HUD once the network request comes back (must be done on main UI thread)
             if let data = data {
                 if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    //                    print(dataDictionary)
+//                    print(dataDictionary)
                     self.movies = dataDictionary["results"] as! [[String:Any]]
                     self.filterMovies = self.movies
 //                    print(self.movies)
-                    MBProgressHUD.hide(for: self.view, animated: true)
                     self.collectionView.reloadData()
                     self.networkErrButton?.isHidden = true
                 }
             } else {
                 self.networkErrButton?.isHidden = false
             }
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
         task.resume()
     }
@@ -118,7 +127,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCell
         cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: collectionView.frame.size.width/2, height: 250)
-        cell.movieImage.frame.size.width = cell.frame.size.width
+        cell.movieImage.frame.size = cell.frame.size
         let movie = self.filterMovies[indexPath.row]
         if let poster_path = movie["poster_path"] as? String {
             let base_url = "https://image.tmdb.org/t/p/w500/"
