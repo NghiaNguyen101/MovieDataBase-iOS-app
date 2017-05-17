@@ -8,5 +8,6 @@ target 'MovieDataBase' do
   # Pods for MovieDataBase
   pod 'AlamofireImage', '~> 3.1'
   pod 'MBProgressHUD'
+  pod 'AFNetworking'
 
 end

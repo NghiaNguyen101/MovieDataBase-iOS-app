@@ -47,14 +47,41 @@ class DetailMovieViewController: UIViewController {
         ratingLabel.text = "Rating: " + String(describing: rating!)
         ratingLabel.sizeToFit()
         
-        detailView.sizeToFit()
+        detailView.frame.size.height = titleLabel.frame.size.height + 70 + releaseDateLabel.frame.size.height + overviewLabel.frame.size.height
+//        detailView.sizeToFit()
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: detailView.frame.origin.y + detailView.frame.size.height + 20)
         
+        // Load small image first then large image
         if let poster_path = movie["poster_path"] as? String {
             let base_url = "https://image.tmdb.org/t/p/w500/"
             let poster_url = URL(string: base_url + poster_path)
-            posterImage.af_setImage(withURL: poster_url!)
+            let original_base_url = "https://image.tmdb.org/t/p/original"
+            let original_poster_url = URL(string: original_base_url + poster_path)
+            let smallImageRequest = URLRequest(url: poster_url!)
+            let largeImageRequest = URLRequest(url: original_poster_url!)
+            
+            posterImage.setImageWith(smallImageRequest, placeholderImage: nil, success: {(smallImageRequest, smallImageResponse, smallImage) -> Void in
+                var duration = 0.0
+                if smallImageResponse != nil {
+                    self.posterImage.alpha = 0.0
+                    duration = 0.3
+                }
+                self.posterImage.image = smallImage
+                UIView.animate(withDuration: duration, animations: { () -> Void in
+                    self.posterImage.alpha = 1.0
+                }, completion: { (success) -> Void in
+                    self.posterImage.setImageWith(largeImageRequest, placeholderImage: smallImage, success: { (largeImageRequest, largeImageReponse, largeImage) -> Void in
+                        self.posterImage.image = largeImage
+                    }, failure: { (request, reponse, error) -> Void in
+                        // handle err, but most likely just leave it
+                    })
+                })
+            }, failure: { (smallImageRequest, smallImageResponse, error) -> Void in
+                self.posterImage.image = nil
+            })
+        } else {
+            posterImage.image = nil
         }
         
     }
