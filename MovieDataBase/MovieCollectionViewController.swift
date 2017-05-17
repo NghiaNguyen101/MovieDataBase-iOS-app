@@ -47,6 +47,8 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
+        let attributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         refreshControl.addTarget(self, action: #selector(update_data(_:)), for: UIControlEvents.valueChanged)
         // add refresh control to collection view
         collectionView.insertSubview(refreshControl, at: 0)
@@ -74,6 +76,15 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         return 1
     }
     
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        print("yo header")
+//        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCollectionView", for: indexPath)
+//        let label = UILabel(frame: headerView.frame)
+//        label.textColor = UIColor.white
+//        label.text = "Test"
+//        headerView.addSubview(label)
+//        return headerView
+//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCell
@@ -107,6 +118,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     // MARK: - Search Bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("change")
         filterMovies = searchText.isEmpty ? movies : movies.filter {
             (item: [String: Any]) -> Bool in
             let title = item["title"] as! String
@@ -180,8 +192,9 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         
         // Display HUD right before the request is made
-        MBProgressHUD.showAdded(to: self.view, animated: true)
-        
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.mode = MBProgressHUDMode.indeterminate
+        hud.label.text = "Loading..."
         
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             // Hide HUD once the network request comes back (must be done on main UI thread)
