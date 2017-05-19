@@ -1,8 +1,8 @@
-# Project 1 - *Movie Database*
+# Project 1 and 2 - *Movie Database*
 
 **Movie Database** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **3** hours spent in total
+Time spent: **7** hours spent in total
 
 ## User Stories
 
@@ -12,6 +12,9 @@ The following **required** functionality is complete:
 - [x] Poster images are loaded using the UIImageView category in the AFNetworking library.
 - [x] User sees a loading state while waiting for the movies API.
 - [x] User can pull to refresh the movie list.
+- [x] User can view movie details by tapping on a cell.
+- [x] User can select from a tab bar for either **Now Playing** or **Top Rated** movies.
+- [x] Customize the selection effect of the cell.
 
 The following **optional** features are implemented:
 
@@ -19,10 +22,12 @@ The following **optional** features are implemented:
 - [x] Movies are displayed using a CollectionView instead of a TableView.
 - [x] User can search for a movie.
 - [x] All images fade in as they are loading.
-- [ ] Customize the UI.
+- [x] Customize the UI.
+- [x] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
+- [x] Customize the navigation bar.
 
 The following **additional** features are implemented:
-
+- [x] User can load more movies when scroll to the bottom (inifinite scrolling)
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 

@@ -52,8 +52,9 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         refreshControl.addTarget(self, action: #selector(update_data(_:)), for: UIControlEvents.valueChanged)
         // add refresh control to collection view
         collectionView.insertSubview(refreshControl, at: 0)
-        
-        fetch_data()
+       
+        networkErrButton?.isHidden = false
+//        fetch_data()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +75,10 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        searchBar.resignFirstResponder()
     }
     
 //    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
